@@ -1,0 +1,30 @@
+name: Create Release
+
+# Worflow will run when a pull request has been closed (also covering merges)
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  create_release:
+    name: Create Release
+    runs-on: ubuntu-latest
+
+    # Only run if the PR was "merged"
+    if: github.event.pull_request.merged == true
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # https://github.com/actions/checkout#Fetch-all-history-for-all-tags-and-branches
+
+      - uses: ./.github/actions/build
+
+      - uses: ./.github/actions/create-tag
+
+      - uses: ./.github/actions/create-release-notes
+
+      - uses: ./.github/actions/create-release
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

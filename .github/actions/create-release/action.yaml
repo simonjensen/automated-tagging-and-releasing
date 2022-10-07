@@ -1,0 +1,22 @@
+name: Create Release
+
+description: Create a release using GitHub CLI
+
+inputs:
+  GITHUB_TOKEN:
+    description: A valid GitHub token that allow for creation of releases
+    required: true
+
+runs:
+  using: composite
+
+  steps:
+
+    - name: Create Release
+      shell: bash
+      run: |
+        tag=$(git tag -l | sort -V | tail -n 1)
+        gh release create $tag ./src/app -F changelog.md -t $tag # https://cli.github.com/manual/gh_release_create
+      # gh release create $tag ./src/app --generate-notes # https://cli.github.com/manual/gh_release_create
+      env:
+        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}

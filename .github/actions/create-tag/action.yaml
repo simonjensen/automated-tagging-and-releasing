@@ -1,0 +1,16 @@
+name: Create tag
+
+description: Create and push a new tag
+
+runs:
+  using: composite
+
+  steps:
+
+    # https://gitversion.net/docs/usage/cli/arguments
+    - name: Create Tag
+      shell: bash
+      run: |
+        nextVersion=$(docker run --rm -v $(pwd):/repo gittools/gitversion:5.10.1-debian.10-6.0 /repo /showvariable MajorMinorPatch)
+        git tag v$nextVersion
+        git push --tags

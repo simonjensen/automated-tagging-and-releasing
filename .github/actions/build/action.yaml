@@ -1,0 +1,33 @@
+name: Build
+
+description: Build and test the application
+
+runs:
+  using: composite
+
+  steps:
+
+    - name: Setup Go
+      uses: actions/setup-go@v3
+      with:
+        go-version-file: "src/go.mod"
+
+    - shell: bash
+      run: |
+        cd ./src
+        go run main.go
+
+    - shell: bash
+      run: |
+        cd ./src
+        go test ./hello
+
+    - shell: bash
+      run: |
+        cd ./src
+        go build .
+
+    - shell: bash
+      run: |
+        cd ./src
+        ./app
