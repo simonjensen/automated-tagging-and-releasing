@@ -37,3 +37,4 @@ go build .
 
 - https://github.com/marketplace/actions/setup-go-environment
 - https://gitversion.net/docs/learn/how-it-works
+
