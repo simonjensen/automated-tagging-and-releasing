@@ -9,7 +9,7 @@
 To run, test and build this code from a docker container, run the following command from the root of this repository:
 
 ```sh
-docker run -it --rm -v $(pwd)/src:/app -w /app golang:1.18.2 bash
+docker run -it --rm -v $(pwd)/src:/app -w /app golang:1.23 bash
 ```
 
 Alternatively you can install Go on your local machine, following the official guides:
